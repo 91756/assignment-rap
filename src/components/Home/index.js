@@ -1,11 +1,10 @@
 import {Component} from 'react'
+import * as Loader from 'react-loader-spinner'
 import {BiSearch} from 'react-icons/bi'
 import CardItem from '../CardItem'
 import nxtlogo from '../../images/nxtlogo.png'
 import Header from '../Header'
-import Tabs from '../Tabs'
 import TabItem from '../TabItem'
-import Resources from '../Resources'
 import {
   Container,
   TabsContainer,
@@ -13,6 +12,7 @@ import {
   SearchInput,
   Input,
   ResourcesContainer,
+  LoadingVewContainer,
 } from './styledComponents'
 
 const tabsList = [
@@ -21,11 +21,18 @@ const tabsList = [
   {tabId: 'users', text: 'Users'},
 ]
 
+const apiStatusConstants = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
+}
+
 class Home extends Component {
   state = {
     resourcesList: [],
     searchInput: '',
-    apiStatus: false,
+    apiStatus: apiStatusConstants.initial,
     activeTab: 'resources',
   }
 
@@ -34,6 +41,10 @@ class Home extends Component {
   }
 
   getResourcesApi = async () => {
+    this.setState({
+      apiStatus: apiStatusConstants.inProgress,
+    })
+
     const api =
       'https://media-content.ccbp.in/website/react-assignment/resources.json'
     const response = await fetch(api)
@@ -48,7 +59,14 @@ class Home extends Component {
       title: eachItem.title,
     }))
     console.log(resourcesData)
-    this.setState({resourcesList: resourcesData, apiStatus: true})
+    if (response.ok === true) {
+      this.setState({
+        resourcesList: resourcesData,
+        apiStatus: apiStatusConstants.success,
+      })
+    } else {
+      this.setState({apiStatus: apiStatusConstants.failure})
+    }
   }
 
   onChangeSearchInput = event => {
@@ -103,7 +121,13 @@ class Home extends Component {
     return resourcesList
   }
 
-  renderResources() {
+  renderLoadingView = () => (
+    <LoadingVewContainer>
+      <Loader.TailSpin color="#07641f" height={50} width={50} />
+    </LoadingVewContainer>
+  )
+
+  renderResources = () => {
     const {activeTab} = this.state
     const filteredResources = this.getResources(activeTab)
     return (
@@ -115,6 +139,18 @@ class Home extends Component {
         </ResourcesContainer>
       </div>
     )
+  }
+
+  renderDisplayView = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.inProgress:
+        return this.renderLoadingView()
+      case apiStatusConstants.success:
+        return this.renderResources()
+      default:
+        return null
+    }
   }
 
   render() {
@@ -144,7 +180,7 @@ class Home extends Component {
             />
           </SearchInput>
         </SearchContainer>
-        <div>{this.renderResources()}</div>
+        <div>{this.renderDisplayView()}</div>
       </Container>
     )
   }

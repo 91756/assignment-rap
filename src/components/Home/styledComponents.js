@@ -36,4 +36,11 @@ export const ResourcesContainer = styled.ul`
   align-items: center;
   flex-wrap: wrap;
 `
+export const LoadingVewContainer = styled.div`
+  display: flex;
+  height: 65vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 export default styled

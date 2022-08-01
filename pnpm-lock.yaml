@@ -7,6 +7,7 @@ dependencies:
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
   react-icons: 4.3.1_react@17.0.1
+  react-loader-spinner: 5.1.7-beta.1_react-dom@17.0.1+react@17.0.1
   react-router-dom: 5.2.0_react@17.0.1
   react-toastify: 9.0.3_react-dom@17.0.1+react@17.0.1
   styled-components: 5.3.5_react-dom@17.0.1+react@17.0.1
@@ -11444,6 +11445,18 @@ packages:
   /react-is/17.0.2:
     resolution:
       integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+  /react-loader-spinner/5.1.7-beta.1_react-dom@17.0.1+react@17.0.1:
+    dependencies:
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
+      styled-components: 5.3.5_react-dom@17.0.1+react@17.0.1
+      styled-tools: 1.7.2
+    dev: false
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+    resolution:
+      integrity: sha512-Lo5qVWUyhAMs92PffsJRwH6iqPTgBmC7pocFA8Z3fkxS8s9OVKTIKRMvgywQ+CAxEXN9H5AqziYS+8zT7yK3CQ==
   /react-refresh/0.8.3:
     dev: true
     engines:
@@ -12838,6 +12851,10 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-ndETJ9RKaaL6q41B69WudeqLzOpY1A/ET/glXkNZ2T7dPjPqpPCXXQjDFYZWwNnE5co0wX+gTCqx9mfxTmSIPg==
+  /styled-tools/1.7.2:
+    dev: false
+    resolution:
+      integrity: sha512-IjLxzM20RMwAsx8M1QoRlCG/Kmq8lKzCGyospjtSXt/BTIIcvgTonaxQAsKnBrsZNwhpHzO9ADx5te0h76ILVg==
   /stylehacks/4.0.3:
     dependencies:
       browserslist: 4.19.1
@@ -14138,6 +14155,7 @@ specifiers:
   react: 17.0.1
   react-dom: 17.0.1
   react-icons: 4.3.1
+  react-loader-spinner: 5.1.7-beta.1
   react-router-dom: 5.2.0
   react-scripts: 4.0.3
   react-toastify: 9.0.3

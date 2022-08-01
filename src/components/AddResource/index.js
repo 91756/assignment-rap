@@ -50,14 +50,14 @@ class AddResource extends Component {
   }
 
   getErrorNotification = () => {
-    toast.error('error', {
+    toast.error('not added', {
       position: 'bottom-center',
       className: 'error-toast',
     })
   }
 
   getSuccessNotification = () => {
-    toast.success('success', {
+    toast.success('successfully added', {
       position: 'bottom-center',
       className: 'success-toast',
     })
@@ -122,7 +122,11 @@ class AddResource extends Component {
     const response = await fetch(url)
     console.log(response)
     if (response.ok === true) {
-      this.getSuccessNotification()
+      if (inputDescription.length >= 10) {
+        this.getSuccessNotification()
+      } else {
+        this.getErrorNotification()
+      }
     } else {
       this.getErrorNotification()
     }
@@ -133,17 +137,21 @@ class AddResource extends Component {
     const {inputName, inputLink, inputDescription} = this.state
     if (inputName === '') {
       this.setState({showInputNameError: true})
-    } else if (inputLink === '') {
+    }
+    if (inputLink === '') {
       this.setState({showInputLinkError: true})
-    } else if (inputDescription === '') {
+    }
+    if (inputDescription === '') {
       this.setState({showInputDescriptionError: true})
-    } else if (
-      inputName !== '' &&
-      inputLink !== '' &&
-      inputDescription !== ''
-    ) {
+    }
+    if (inputName !== '' && inputLink !== '' && inputDescription !== '') {
       this.getFormSubmitted()
     }
+  }
+
+  logout = () => {
+    const {history} = this.props
+    history.replace('/login')
   }
 
   render() {
@@ -159,7 +167,7 @@ class AddResource extends Component {
       <div>
         <HeaderContainer>
           <ImageLogo src={nxtlogo} />
-          <ImageIcon src={avatarImg} />
+          <ImageIcon src={avatarImg} onClick={this.logout} />
         </HeaderContainer>
         <UiContainer>
           <div>
