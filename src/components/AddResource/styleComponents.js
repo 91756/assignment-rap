@@ -67,7 +67,7 @@ export const PhotoContainer = styled.div`
   margin-top: 5px;
 `
 export const DivPhoto = styled.div`
-  width: 50px;
+  width: 60px;
   height: 40px;
   text-align: center;
   padding-top: 15px;

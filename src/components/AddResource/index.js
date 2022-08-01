@@ -1,11 +1,12 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {IoIosArrowBack} from 'react-icons/io'
+import {v4 as uuidv4} from 'uuid'
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import logoimage from '../../images/logo.png'
-import nxtlogo from '../../images/nxtlogo.png'
+import logoImage from '../../images/logo.png'
+import nxtLogo from '../../images/nxtlogo.png'
 import iconUp from '../../images/Icon.png'
 import addResourceImg from '../../images/image 9.png'
 import avatarImg from '../../images/avatar img.png'
@@ -33,12 +34,14 @@ import {
 
 class AddResource extends Component {
   state = {
+    addResourcesList: [],
     inputName: '',
     inputLink: '',
     inputDescription: '',
     showInputNameError: false,
     showInputLinkError: false,
     showInputDescriptionError: false,
+    imgFile: '',
   }
 
   onChangeInputName = event => {
@@ -107,24 +110,32 @@ class AddResource extends Component {
   }
 
   getFormSubmitted = async () => {
-    const {inputName, inputLink, inputDescription} = this.state
-    const resourcesDetails = {
+    const {inputName, inputLink, inputDescription, imageFile} = this.state
+    const newResource = {
+      id: uuidv4(),
       title: inputName,
       link: inputLink,
       description: inputDescription,
+      iconUrl: imageFile,
     }
-    console.log(resourcesDetails)
+
     const url =
       'https://media-content.ccbp.in/website/react-assignment/add_resource.json'
     const options = {
       method: 'POST',
       mode: 'no-cors',
-      body: JSON.stringify(resourcesDetails),
+      body: JSON.stringify(newResource),
     }
     const response = await fetch(url)
     console.log(response)
     if (response.ok === true) {
       if (inputDescription.length >= 10) {
+        this.setState(prevState => ({
+          addResourcesList: [...prevState.addResourcesList, newResource],
+          inputName: '',
+          inputLink: '',
+          inputDescription: '',
+        }))
         this.getSuccessNotification()
       } else {
         this.getErrorNotification()
@@ -157,6 +168,15 @@ class AddResource extends Component {
     history.replace('/login')
   }
 
+  getHomePage = () => {
+    const {history} = this.props
+    history.push('/')
+  }
+
+  handleChange = event => {
+    this.setState({imageFile: URL.createObjectURL(event.target.files[0])})
+  }
+
   render() {
     const {
       showInputNameError,
@@ -165,11 +185,12 @@ class AddResource extends Component {
       inputLink,
       inputDescription,
       showInputDescriptionError,
+      imageFile,
     } = this.state
     return (
       <div>
         <HeaderContainer>
-          <ImageLogo src={nxtlogo} />
+          <ImageLogo src={nxtLogo} onClick={this.getHomePage} />
           <ImageIcon src={avatarImg} onClick={this.logout} />
         </HeaderContainer>
         <UiContainer>
@@ -229,10 +250,11 @@ class AddResource extends Component {
               <div>
                 <PhotoContainer>
                   <DivPhoto>
-                    <img src={logoimage} alt="img" />
+                    <img src={imageFile} alt="img" />
                   </DivPhoto>
                   <ImageArrowIcon src={iconUp} alt="" />
                   <Paragraph>Change photo</Paragraph>
+                  <input type="file" onChange={this.handleChange} />
                 </PhotoContainer>
               </div>
               <CustomButton type="submit">CREATE</CustomButton>
