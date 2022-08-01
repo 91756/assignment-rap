@@ -1,4 +1,6 @@
 import {Component} from 'react'
+import {Redirect} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import {
   ContainerElement,
   FormContainer,
@@ -43,7 +45,9 @@ class LoginForm extends Component {
 
   successLogin = () => {
     const {history} = this.props
-    history.push('/')
+    const jwtToken = 'secret-key'
+    Cookies.set('jwt_token', jwtToken, {expires: 20})
+    history.replace('/')
   }
 
   formSubmitted = event => {
@@ -51,6 +55,12 @@ class LoginForm extends Component {
     const {mobileNumber, password} = this.state
     console.log(mobileNumber)
     console.log(password.length)
+    if (mobileNumber === '') {
+      this.setState({showMobileNoError: true, showFailureError: false})
+    }
+    if (password === '') {
+      this.setState({showPasswordError: true, showFailureError: false})
+    }
     if (
       mobileNumber.length === 10 &&
       typeof parseInt(mobileNumber) === 'number' &&
@@ -58,12 +68,16 @@ class LoginForm extends Component {
     ) {
       this.setState({showFailureError: false})
       this.successLogin()
-    } else {
+    } else if (mobileNumber.length < 10 && mobileNumber !== '') {
       this.setState({showFailureError: true})
     }
   }
 
   render() {
+    const jwtToken = Cookies.get('jwt_token')
+    if (jwtToken !== undefined) {
+      return <Redirect to="/" />
+    }
     const {
       mobileNumber,
       password,

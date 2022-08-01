@@ -1,8 +1,10 @@
 import {Component} from 'react'
+import Cookies from 'js-cookie'
 import {IoIosArrowBack} from 'react-icons/io'
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
+import logoimage from '../../images/logo.png'
 import nxtlogo from '../../images/nxtlogo.png'
 import iconUp from '../../images/Icon.png'
 import addResourceImg from '../../images/image 9.png'
@@ -150,6 +152,7 @@ class AddResource extends Component {
   }
 
   logout = () => {
+    Cookies.remove('jwt_token')
     const {history} = this.props
     history.replace('/login')
   }
@@ -225,7 +228,9 @@ class AddResource extends Component {
               </div>
               <div>
                 <PhotoContainer>
-                  <DivPhoto>Img</DivPhoto>
+                  <DivPhoto>
+                    <img src={logoimage} alt="img" />
+                  </DivPhoto>
                   <ImageArrowIcon src={iconUp} alt="" />
                   <Paragraph>Change photo</Paragraph>
                 </PhotoContainer>

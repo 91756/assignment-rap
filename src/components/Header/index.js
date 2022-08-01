@@ -1,4 +1,5 @@
 import {Link, withRouter} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import nxtlogo from '../../images/nxtlogo.png'
 import avatarImg from '../../images/avatar img.png'
 import {
@@ -11,6 +12,7 @@ import {
 
 const Header = props => {
   const logout = () => {
+    Cookies.remove('jwt_token')
     const {history} = props
     history.replace('/login')
   }
