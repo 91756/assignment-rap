@@ -1,0 +1,86 @@
+.app-container {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+.form-container {
+  width: 60vw;
+}
+.item-container {
+  display: flex;
+}
+.btn {
+  border-width: 0px;
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: bold;
+}
+.tab-cart {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.input-name {
+  color: #827f7f;
+  font-weight: 600;
+  margin-right: 100px;
+}
+
+.input-type {
+  outline: none;
+  border-width: 0px;
+  width: 350px;
+  padding-left: 15px;
+  font-size: 18px;
+  color: #827f7f;
+}
+.file-upload {
+  display: inline;
+}
+.desc {
+  display: flex;
+  align-items: center;
+}
+.input-desc {
+  outline: none;
+  border-width: 0px;
+}
+.default-heading {
+  color: blue;
+  font-size: 18px;
+  font-family: 'Roboto';
+  margin-bottom: -10px;
+}
+.users-cart {
+  padding-top: 25px;
+}
+.status-option {
+  width: 350px;
+  color: #827f7f;
+  border-width: 0px;
+  outline: none;
+  cursor: pointer;
+}
+
+.option {
+  cursor: pointer;
+}
+.release-button {
+  color: #827f7f;
+  border-width: 0px;
+}
+
+.button {
+  margin-right: 15px;
+  height: 35px;
+  width: 100px;
+  border: 1px solid #827f7f;
+  color: #827f7f;
+}
+
+.create {
+  background-color: rgb(31, 224, 224);
+  color: white;
+}
