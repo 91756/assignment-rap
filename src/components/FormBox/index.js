@@ -1,4 +1,6 @@
 import {Component} from 'react'
+import {BsUpload} from 'react-icons/bs'
+import './index.css'
 
 class FormBox extends Component {
   state = {
@@ -43,7 +45,11 @@ class FormBox extends Component {
     return (
       <div>
         <form action="." encType="multipart/form-data">
-          <input type="file" onChange={this.getPhoto} />
+          <label htmlFor="file-upload">
+            <BsUpload />
+          </label>
+          <input type="file" id="file-upload" onChange={this.getPhoto} />
+          <br />
           <button type="button" onClick={this.pressButton}>
             Get it
           </button>
